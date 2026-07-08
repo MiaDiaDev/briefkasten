@@ -19,22 +19,42 @@ blogs:
   - name: Hacker News (AI, 50+ points)
     url: https://hnrss.org/newest?q=AI+OR+LLM+OR+Claude&points=50
     weight: 0.8
+  - name: Hugging Face Blog
+    url: https://huggingface.co/blog/feed.xml
+  - name: One Useful Thing (Ethan Mollick)
+    url: https://www.oneusefulthing.org/feed
+  - name: philschmid
+    url: https://www.philschmid.de/rss
+  - name: Hamel Husain
+    url: https://hamel.dev/index.xml
+  - name: Chip Huyen            # quiet since Jan 2025; harmless to keep
+    url: https://huyenchip.com/feed.xml
+  - name: Lil'Log (Lilian Weng)
+    url: https://lilianweng.github.io/index.xml
+  - name: SemiAnalysis          # feed stale since Sep 2025 (paywall?); watch
+    url: https://semianalysis.com/feed/
+  - name: OpenAI News
+    url: https://openai.com/news/rss.xml
+  - name: netzpolitik.org
+    url: https://netzpolitik.org/feed/
+    weight: 0.8                 # high volume, general digital policy
 
-# Twitter/X via RSS bridges. Public Nitter instances are mostly dead;
-# working options as of mid-2026 (verify before relying on them):
-#   - openrss.org:  https://openrss.org/twitter.com/<handle>
-#   - RSSHub (self-hosted or public with config): /twitter/user/<handle>
-#   - rss.app (freemium, hosted)
-# Replace BRIDGE below with whichever you land on.
+# Twitter/X via nitter.net RSS (verified alive 2026-07-08; openrss and
+# rsshub.app no longer serve Twitter anonymously). If nitter dies again,
+# swap the host here — pattern: https://<instance>/<handle>/rss
 twitter:
   - name: "@simonw"
-    url: https://openrss.org/twitter.com/simonw
+    url: https://nitter.net/simonw/rss
   - name: "@karpathy"
-    url: https://openrss.org/twitter.com/karpathy
+    url: https://nitter.net/karpathy/rss
   - name: "@swyx"
-    url: https://openrss.org/twitter.com/swyx
+    url: https://nitter.net/swyx/rss
   - name: "@alexalbert__"
-    url: https://openrss.org/twitter.com/alexalbert__
+    url: https://nitter.net/alexalbert__/rss
+  - name: "@DrJimFan"
+    url: https://nitter.net/DrJimFan/rss
+  - name: "@elder_plinius"
+    url: https://nitter.net/elder_plinius/rss
 
 settings:
   max_items_per_source: 25
