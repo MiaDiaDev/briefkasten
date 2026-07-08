@@ -1,0 +1,42 @@
+# Every source is just a feed URL — bridges are swappable one-liners.
+# weight: multiplier applied to the final score (default 1.0)
+
+blogs:
+  - name: Simon Willison
+    url: https://simonwillison.net/atom/everything/
+    weight: 1.2
+  - name: Anthropic News
+    url: https://www.anthropic.com/rss.xml
+    weight: 1.1
+  - name: Interconnects (Nathan Lambert)
+    url: https://www.interconnects.ai/feed
+  - name: Import AI (Jack Clark)
+    url: https://importai.substack.com/feed
+  - name: Latent Space
+    url: https://www.latent.space/feed
+  - name: Sebastian Raschka
+    url: https://magazine.sebastianraschka.com/feed
+  - name: Hacker News (AI, 50+ points)
+    url: https://hnrss.org/newest?q=AI+OR+LLM+OR+Claude&points=50
+    weight: 0.8
+
+# Twitter/X via RSS bridges. Public Nitter instances are mostly dead;
+# working options as of mid-2026 (verify before relying on them):
+#   - openrss.org:  https://openrss.org/twitter.com/<handle>
+#   - RSSHub (self-hosted or public with config): /twitter/user/<handle>
+#   - rss.app (freemium, hosted)
+# Replace BRIDGE below with whichever you land on.
+twitter:
+  - name: "@simonw"
+    url: https://openrss.org/twitter.com/simonw
+  - name: "@karpathy"
+    url: https://openrss.org/twitter.com/karpathy
+  - name: "@swyx"
+    url: https://openrss.org/twitter.com/swyx
+  - name: "@alexalbert__"
+    url: https://openrss.org/twitter.com/alexalbert__
+
+settings:
+  max_items_per_source: 25
+  max_age_hours: 36        # ignore items older than this
+  request_timeout_s: 15
