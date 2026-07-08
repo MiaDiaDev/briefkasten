@@ -51,10 +51,13 @@ def _fetch_source(src: dict, cutoff: datetime, limit: int) -> list[Item]:
         url = entry.get("link", "")
         if not url:
             continue
+        title = entry.get("title", "(untitled)").strip()
+        if title.startswith("R to "):  # nitter reply/self-thread items
+            continue
         out.append(
             Item(
                 id=_item_id(url),
-                title=entry.get("title", "(untitled)").strip(),
+                title=title,
                 url=url,
                 source=src["name"],
                 source_weight=float(src.get("weight", 1.0)),
