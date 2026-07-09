@@ -12,7 +12,9 @@ from pathlib import Path
 from .models import Item
 
 STATE = Path(__file__).parents[2] / "data" / "seen.json"
+HISTORY = Path(__file__).parents[2] / "data" / "history.jsonl"
 RETENTION_DAYS = 30
+HISTORY_RETENTION_DAYS = 90
 TITLE_SIMILARITY = 0.9
 
 
@@ -72,6 +74,34 @@ def dedupe(items: list[Item]) -> list[Item]:
         if not any(_same_story(items[i], items[k], titles[i], titles[k]) for k in kept):
             kept.append(i)
     return [items[i] for i in sorted(kept)]
+
+
+def append_history(brief_date: str, items: list[Item], path: Path = HISTORY) -> None:
+    """Log scored items per run; substrate for feedback, stats, deep-dives."""
+    cutoff = (
+        datetime.now(timezone.utc) - timedelta(days=HISTORY_RETENTION_DAYS)
+    ).date().isoformat()
+    rows = []
+    if path.exists():
+        rows = [json.loads(ln) for ln in path.read_text().splitlines() if ln]
+        rows = [r for r in rows if r["date"] >= cutoff]
+    rows.extend(
+        {
+            "date": brief_date,
+            "id": it.id,
+            "title": it.title,
+            "url": it.url,
+            "source": it.source,
+            "field_impact": it.field_impact,
+            "work_relevance": it.work_relevance,
+            "personal_interest": it.personal_interest,
+            "score": it.score,
+            "summary": it.summary,
+        }
+        for it in items
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n")
 
 
 def mark_seen(items: list[Item], seen: dict[str, str], path: Path = STATE) -> None:
