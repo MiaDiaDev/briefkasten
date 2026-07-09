@@ -14,11 +14,12 @@ def run(dry_run: bool = False) -> None:
     items = fetch.fetch_all()
     seen = state.load_seen()
     new = state.filter_new(items, seen)
-    log.info("%d new of %d fetched", len(new), len(items))
+    unique = state.dedupe(new)
+    log.info("%d unique of %d new (%d fetched)", len(unique), len(new), len(items))
 
-    if new:
-        score.score_items(new)
-    daily = brief.compose(new)
+    if unique:
+        score.score_items(unique)
+    daily = brief.compose(unique)
     chunks = brief.render(daily)
 
     if dry_run:
@@ -27,7 +28,9 @@ def run(dry_run: bool = False) -> None:
             print(chunk)
     else:
         deliver.send(chunks)
-        state.mark_seen(new, seen)  # only persist after successful delivery
+        # only persist after successful delivery; mark all new ids (including
+        # collapsed duplicates) so a dropped tweet can't resurface tomorrow
+        state.mark_seen(new, seen)
 
 
 def main() -> None:
