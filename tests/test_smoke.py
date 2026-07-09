@@ -1,8 +1,12 @@
 """Offline smoke tests: dedupe, scoring math, rendering, chunking."""
 
+import json
+
 from briefkasten.brief import compose, render
+from briefkasten.deliver import keyboard
+from briefkasten.feedback import parse_updates
 from briefkasten.models import Item
-from briefkasten.state import dedupe, filter_new
+from briefkasten.state import append_history, dedupe, filter_new
 
 
 def make_item(i: int, **kw) -> Item:
@@ -79,3 +83,41 @@ def test_render_escapes_html_and_chunks():
 def test_render_empty_day():
     chunks = render(compose([]))
     assert "Quiet day" in chunks[0]
+
+
+def test_keyboard_one_row_per_item():
+    kb = keyboard([make_item(1), make_item(2)])
+    assert len(kb["inline_keyboard"]) == 2
+    assert kb["inline_keyboard"][0][0]["callback_data"] == "up:id1"
+    assert kb["inline_keyboard"][1][2]["callback_data"] == "save:id2"
+    assert keyboard([]) is None
+
+
+def test_parse_updates_filters_foreign_and_malformed():
+    updates = [
+        {"update_id": 10, "message": {"text": "hi"}},  # not a button press
+        {
+            "update_id": 11,
+            "callback_query": {"from": {"id": 999}, "data": "up:id1"},  # wrong chat
+        },
+        {
+            "update_id": 12,
+            "callback_query": {"from": {"id": 617}, "data": "drop table;--"},
+        },
+        {
+            "update_id": 13,
+            "callback_query": {"from": {"id": 617}, "data": "save:id7"},
+        },
+    ]
+    rows, max_id = parse_updates(updates, "617")
+    assert [(r["action"], r["item_id"]) for r in rows] == [("save", "id7")]
+    assert max_id == 13
+
+
+def test_append_history_writes_and_prunes(tmp_path):
+    path = tmp_path / "history.jsonl"
+    path.write_text(json.dumps({"date": "2020-01-01", "id": "old"}) + "\n")
+    append_history("2026-07-09", [make_item(1)], path=path)
+    rows = [json.loads(ln) for ln in path.read_text().splitlines()]
+    assert [r["id"] for r in rows] == ["id1"]  # ancient row pruned
+    assert rows[0]["score"] == 5.0
