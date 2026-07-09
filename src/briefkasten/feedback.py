@@ -22,8 +22,8 @@ OFFSET = Path(__file__).parents[2] / "data" / "tg_offset.json"
 ACTIONS = {"up", "down", "save"}
 
 
-def poll(save_offset: bool = True) -> list[dict]:
-    """Fetch pending updates, append button events, advance the offset."""
+def poll(consume: bool = True) -> list[dict]:
+    """Fetch pending updates; if `consume`, persist events and the offset."""
     token = os.environ["TELEGRAM_BOT_TOKEN"]
     chat_id = os.environ["TELEGRAM_CHAT_ID"]
     offset = 0
@@ -39,11 +39,11 @@ def poll(save_offset: bool = True) -> list[dict]:
     updates = resp.json().get("result", [])
 
     rows, max_id = parse_updates(updates, chat_id)
-    if rows:
+    if consume and rows:
         with FEEDBACK.open("a") as f:
             for row in rows:
                 f.write(json.dumps(row) + "\n")
-    if save_offset and max_id > offset:
+    if consume and max_id > offset:
         OFFSET.write_text(json.dumps({"offset": max_id}))
     return rows
 
@@ -66,5 +66,5 @@ def parse_updates(updates: list[dict], chat_id: str) -> tuple[list[dict], int]:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     logging.getLogger("httpx").setLevel(logging.WARNING)  # urls contain the bot token
-    for row in poll(save_offset=False):  # peek without consuming
+    for row in poll(consume=False):  # peek: no writes, nothing consumed
         print(row)
