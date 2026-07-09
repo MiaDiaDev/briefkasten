@@ -2,7 +2,9 @@ name: daily-brief
 
 on:
   schedule:
-    - cron: "0 6 * * *" # 06:00 UTC daily (cron is always UTC)
+    # 05:23 UTC = 07:23 CEST / 06:23 CET. Odd minute on purpose: GitHub
+    # drops/delays top-of-hour scheduled runs under load (best-effort cron).
+    - cron: "23 5 * * *"
   workflow_dispatch: # manual trigger for testing
 
 permissions:
