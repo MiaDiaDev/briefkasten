@@ -2,7 +2,7 @@
 
 from briefkasten.brief import compose, render
 from briefkasten.models import Item
-from briefkasten.state import filter_new
+from briefkasten.state import dedupe, filter_new
 
 
 def make_item(i: int, **kw) -> Item:
@@ -33,6 +33,33 @@ def test_source_weight_multiplies():
 def test_filter_new():
     items = [make_item(1), make_item(2)]
     assert [i.id for i in filter_new(items, {"id1": "2026-01-01"})] == ["id2"]
+
+
+def test_dedupe_fuzzy_titles_keeps_highest_weight():
+    a = make_item(1, title="sqlite-utils 4.0 released", source_weight=1.0)
+    b = make_item(2, title="Sqlite-utils 4.0 released!", source_weight=1.2)
+    assert dedupe([a, b]) == [b]
+
+
+def test_dedupe_tweet_linking_to_blog_keeps_blog():
+    blog = make_item(
+        1, title="sqlite-utils 4.0", url="https://simonwillison.net/2026/sqlite-utils-4"
+    )
+    tweet = make_item(
+        2,
+        title="Big release day for my CLI tools",
+        source_weight=1.5,  # weight alone must not beat the linked-to blog post
+        summary_raw='So: <a href="https://simonwillison.net/2026/sqlite-utils-4/">new post</a>',
+    )
+    assert dedupe([blog, tweet]) == [blog]
+
+
+def test_dedupe_keeps_distinct_items():
+    items = [
+        make_item(1, title="Anthropic ships Fable 5"),
+        make_item(2, title="EU AI Act guidance updated"),
+    ]
+    assert dedupe(items) == items
 
 
 def test_compose_splits_top_and_rest():
