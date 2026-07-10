@@ -7,9 +7,10 @@ from datetime import date
 
 from .models import Brief, Item
 
-TOP_N = 5
-MIN_SCORE_FOR_REST = 3.0
+TOP_N = 7
+MIN_SCORE_FOR_REST = 2.5
 TELEGRAM_LIMIT = 4000  # headroom under the 4096 hard limit
+MAX_HEADLINE = 90  # longer titles (usually tweets) collapse to the summary
 
 
 def compose(items: list[Item]) -> Brief:
@@ -19,21 +20,32 @@ def compose(items: list[Item]) -> Brief:
     return Brief(date=date.today().isoformat(), top=top, rest=rest)
 
 
+def _headline(it: Item) -> str:
+    """One concise line: the title, or the summary sentence when the title
+    is a wall of text (tweets); truncate as a last resort."""
+    if len(it.title) <= MAX_HEADLINE:
+        return it.title
+    return it.summary or it.title[: MAX_HEADLINE - 1] + "…"
+
+
 def render(brief: Brief) -> list[str]:
     """Render to one or more HTML messages, each under the Telegram limit."""
     lines = [f"📬 <b>Briefkasten — {brief.date}</b>\n"]
     for i, it in enumerate(brief.top, 1):
-        lines.append(
+        headline = _headline(it)
+        line = (
             f"{i}. <a href=\"{html.escape(it.url, quote=True)}\">"
-            f"{html.escape(it.title)}</a> "
+            f"{html.escape(headline)}</a> "
             f"<i>({it.score:.1f} · {html.escape(it.source)})</i>\n"
-            f"{html.escape(it.summary)}\n"
         )
+        if headline == it.title and it.summary:  # summary not already the headline
+            line += f"{html.escape(it.summary)}\n"
+        lines.append(line)
     if brief.rest:
         lines.append("<b>Also seen:</b>")
         lines.extend(
             f"· <a href=\"{html.escape(it.url, quote=True)}\">"
-            f"{html.escape(it.title)}</a> <i>({it.score:.1f})</i>"
+            f"{html.escape(_headline(it))}</a> <i>({it.score:.1f})</i>"
             for it in brief.rest
         )
     if not brief.top:

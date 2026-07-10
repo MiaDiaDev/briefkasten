@@ -69,8 +69,16 @@ def test_dedupe_keeps_distinct_items():
 def test_compose_splits_top_and_rest():
     items = [make_item(i, field_impact=i) for i in range(10)]
     brief = compose(items)
-    assert len(brief.top) == 5
+    assert len(brief.top) == 7
     assert brief.top[0].score >= brief.top[-1].score
+
+
+def test_render_collapses_long_titles_to_summary():
+    tweet = make_item(1, title="x" * 300, summary="One concise sentence.")
+    out = render(compose([tweet]))[0]
+    assert "One concise sentence.</a>" in out  # summary became the linked headline
+    assert "xxx" not in out
+    assert out.count("One concise sentence.") == 1  # no duplicated summary line
 
 
 def test_render_escapes_html_and_chunks():
