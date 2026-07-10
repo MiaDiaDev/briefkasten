@@ -129,6 +129,41 @@ def test_resolve_maps_rank_to_latest_prior_brief():
     ]
 
 
+def test_enrich_skips_twitter_and_fails_soft(monkeypatch):
+    from briefkasten import fulltext
+
+    class FakeResp:
+        text = "<html><body><article><p>" + "Real article text. " * 30 + "</p></article></body></html>"
+
+        def raise_for_status(self):
+            pass
+
+    class FakeClient:
+        def __init__(self, **kw):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            pass
+
+        def get(self, url):
+            if "dead" in url:
+                raise OSError("connection refused")
+            return FakeResp()
+
+    monkeypatch.setattr(fulltext.httpx, "Client", FakeClient)
+    blog = make_item(1, url="https://example.com/post")
+    tweet = make_item(2, kind="twitter")
+    dead = make_item(3, url="https://dead.example.com/x", summary_raw="rss stub")
+    fulltext.enrich([blog, tweet, dead])
+    assert "Real article text." in blog.content
+    assert len(blog.content) <= fulltext.MAX_CHARS
+    assert tweet.content == ""  # skipped
+    assert dead.content == ""  # failed soft; scorer falls back to summary_raw
+
+
 def test_append_history_writes_and_prunes(tmp_path):
     path = tmp_path / "history.jsonl"
     path.write_text(json.dumps({"date": "2020-01-01", "id": "old"}) + "\n")
