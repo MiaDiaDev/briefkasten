@@ -1,0 +1,32 @@
+# Evening card: one message per day, one deck per weekday (ISO: 1 = Monday).
+# Sunday is deliberately empty — the weekly deep-dive owns it.
+
+rotation:
+  1: spanish
+  2: necro
+  3: forge
+  4: cloud
+  5: spanish
+  6: review
+
+decks:
+  spanish:
+    level: B1
+    # mode rotates weekly: translate (DE→ES sentence), reading (short ES text
+    # + comprehension question), vocab (3 themed words, recalled next time)
+    modes: [translate, reading, vocab]
+  cloud:
+    topics:
+      - AWS core services (S3, EC2, Lambda)
+      - IAM roles and policies
+      - Terraform state and modules
+      - Docker images and layers
+      - CI/CD concepts
+      - VPC and networking basics
+      - serverless patterns
+      - cost awareness / FinOps basics
+  necro:
+    pool: data/bookmark_pool.json
+  forge:
+    model: claude-sonnet-5
+  review: {}
