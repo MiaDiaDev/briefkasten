@@ -13,19 +13,15 @@ log = logging.getLogger(__name__)
 
 
 def keyboard(top: list[Item]) -> dict | None:
-    """Inline feedback buttons, one row per top item. callback_data is
-    harvested by feedback.poll() at the start of the next run."""
+    """Reply keyboard: a tap sends the label as a normal message, which
+    Telegram retains 24h for the morning poll — unlike callback queries,
+    which expire within minutes (learned the hard way)."""
     if not top:
         return None
     return {
-        "inline_keyboard": [
-            [
-                {"text": f"{i} 👍", "callback_data": f"up:{it.id}"},
-                {"text": "👎", "callback_data": f"down:{it.id}"},
-                {"text": "🔖", "callback_data": f"save:{it.id}"},
-            ]
-            for i, it in enumerate(top, 1)
-        ]
+        "keyboard": [[f"{i} 👍", f"{i} 👎", f"{i} 🔖"] for i in range(1, len(top) + 1)],
+        "resize_keyboard": True,
+        "input_field_placeholder": "Rate today's brief",
     }
 
 
@@ -41,7 +37,7 @@ def send(chunks: list[str], reply_markup: dict | None = None) -> None:
                 "parse_mode": "HTML",
                 "disable_web_page_preview": True,
             }
-            if reply_markup and i == 0:  # buttons belong to the top-items chunk
+            if reply_markup and i == len(chunks) - 1:  # keyboard is chat-level: set it last
                 payload["reply_markup"] = reply_markup
             resp = client.post(url, json=payload)
             resp.raise_for_status()

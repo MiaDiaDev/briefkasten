@@ -39,7 +39,8 @@ def run(dry_run: bool = False) -> None:
         # only persist after successful delivery; mark all new ids (including
         # collapsed duplicates) so a dropped tweet can't resurface tomorrow
         state.mark_seen(new, seen)
-        state.append_history(daily.date, unique)
+        ranks = {it.id: n for n, it in enumerate(daily.top, 1)}
+        state.append_history(daily.date, unique, ranks)
 
 
 def main() -> None:
