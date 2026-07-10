@@ -4,7 +4,7 @@ import json
 
 from briefkasten.brief import compose, render
 from briefkasten.deliver import keyboard
-from briefkasten.feedback import parse_updates
+from briefkasten.feedback import parse_updates, resolve
 from briefkasten.models import Item
 from briefkasten.state import append_history, dedupe, filter_new
 
@@ -87,37 +87,45 @@ def test_render_empty_day():
 
 def test_keyboard_one_row_per_item():
     kb = keyboard([make_item(1), make_item(2)])
-    assert len(kb["inline_keyboard"]) == 2
-    assert kb["inline_keyboard"][0][0]["callback_data"] == "up:id1"
-    assert kb["inline_keyboard"][1][2]["callback_data"] == "save:id2"
+    assert kb["keyboard"] == [["1 👍", "1 👎", "1 🔖"], ["2 👍", "2 👎", "2 🔖"]]
     assert keyboard([]) is None
 
 
 def test_parse_updates_filters_foreign_and_malformed():
     updates = [
-        {"update_id": 10, "message": {"text": "hi"}},  # not a button press
-        {
-            "update_id": 11,
-            "callback_query": {"from": {"id": 999}, "data": "up:id1"},  # wrong chat
-        },
-        {
-            "update_id": 12,
-            "callback_query": {"from": {"id": 617}, "data": "drop table;--"},
-        },
-        {
-            "update_id": 13,
-            "callback_query": {"from": {"id": 617}, "data": "save:id7"},
-        },
+        {"update_id": 10, "message": {"from": {"id": 617}, "date": 0, "text": "hi"}},
+        {"update_id": 11, "message": {"from": {"id": 999}, "date": 0, "text": "1 👍"}},
+        {"update_id": 12, "message": {"from": {"id": 617}, "date": 0, "text": "6teen 👍👍"}},
+        {"update_id": 13, "message": {"from": {"id": 617}, "date": 86400, "text": "2🔖"}},
     ]
-    rows, max_id = parse_updates(updates, "617")
-    assert [(r["action"], r["item_id"]) for r in rows] == [("save", "id7")]
+    taps, max_id = parse_updates(updates, "617")
+    assert taps == [{"msg_date": "1970-01-02", "rank": 2, "action": "save"}]
     assert max_id == 13
+
+
+def test_resolve_maps_rank_to_latest_prior_brief():
+    history = [
+        {"date": "2026-07-09", "rank": 2, "id": "old2"},
+        {"date": "2026-07-10", "rank": 2, "id": "new2"},
+        {"date": "2026-07-10", "rank": None, "id": "unranked"},
+    ]
+    taps = [
+        {"msg_date": "2026-07-10", "rank": 2, "action": "up"},  # latest brief wins
+        {"msg_date": "2026-07-09", "rank": 2, "action": "save"},  # older msg -> older brief
+        {"msg_date": "2026-07-10", "rank": 5, "action": "up"},  # no rank 5 -> dropped
+        {"msg_date": "2026-07-01", "rank": 1, "action": "up"},  # before any brief -> dropped
+    ]
+    assert [(r["action"], r["item_id"]) for r in resolve(taps, history)] == [
+        ("up", "new2"),
+        ("save", "old2"),
+    ]
 
 
 def test_append_history_writes_and_prunes(tmp_path):
     path = tmp_path / "history.jsonl"
     path.write_text(json.dumps({"date": "2020-01-01", "id": "old"}) + "\n")
-    append_history("2026-07-09", [make_item(1)], path=path)
+    append_history("2026-07-09", [make_item(1)], ranks={"id1": 3}, path=path)
     rows = [json.loads(ln) for ln in path.read_text().splitlines()]
     assert [r["id"] for r in rows] == ["id1"]  # ancient row pruned
     assert rows[0]["score"] == 5.0
+    assert rows[0]["rank"] == 3

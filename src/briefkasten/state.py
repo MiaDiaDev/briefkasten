@@ -76,8 +76,17 @@ def dedupe(items: list[Item]) -> list[Item]:
     return [items[i] for i in sorted(kept)]
 
 
-def append_history(brief_date: str, items: list[Item], path: Path = HISTORY) -> None:
-    """Log scored items per run; substrate for feedback, stats, deep-dives."""
+def append_history(
+    brief_date: str,
+    items: list[Item],
+    ranks: dict[str, int] | None = None,
+    path: Path = HISTORY,
+) -> None:
+    """Log scored items per run; substrate for feedback, stats, deep-dives.
+
+    `ranks` maps item id -> position in the brief's top list, so a reply
+    like "2 👍" can be resolved back to an item the next morning."""
+    ranks = ranks or {}
     cutoff = (
         datetime.now(timezone.utc) - timedelta(days=HISTORY_RETENTION_DAYS)
     ).date().isoformat()
@@ -88,6 +97,7 @@ def append_history(brief_date: str, items: list[Item], path: Path = HISTORY) -> 
     rows.extend(
         {
             "date": brief_date,
+            "rank": ranks.get(it.id),
             "id": it.id,
             "title": it.title,
             "url": it.url,
