@@ -1,0 +1,608 @@
+[
+ {
+  "id": "3277bb3f6a76",
+  "title": "Perfektionismus adé: KISS für effiziente Softwareentwicklung - YouTube",
+  "url": "https://www.youtube.com/watch?v=5XGqI4aui9k&list=WL&index=276",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "62d62940851c",
+  "title": "Junior to senior: An action plan for engineering career success",
+  "url": "https://github.com/readme/guides/engineering-career-success?utm_source=tldrnewsletter",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "1c5530632759",
+  "title": "How to improve software engineering skills as a researcher",
+  "url": "https://ljvmiranda921.github.io/notebook/2020/11/15/data-science-swe/",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "6bb637ad926b",
+  "title": "The Catalog of Design Patterns",
+  "url": "https://refactoring.guru/design-patterns/catalog",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "4181f8020dd6",
+  "title": "STOP Making These Python Mistakes - YouTube",
+  "url": "https://www.youtube.com/watch?v=sXE5298aDPw&list=WL&index=109&t=1s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "a0dc794897f3",
+  "title": "Object Oriented Programming (OOP) in Python - YouTube",
+  "url": "https://www.youtube.com/watch?v=MikphENIrOo&list=WL&index=108",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "1691f3731377",
+  "title": "How to Prepare for a Python Senior Developer Interview - YouTube",
+  "url": "https://www.youtube.com/watch?v=W0Q1lArJhc8&list=WL&index=66",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "cc7b4813724f",
+  "title": "Python Logging - Tutorial - YouTube",
+  "url": "https://www.youtube.com/watch?v=urrfJgHwIJA&list=WL&index=43",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "5d15bc4b0644",
+  "title": "10 Python Shortcuts You Need To Know - YouTube",
+  "url": "https://www.youtube.com/watch?v=CssrFJGH_dU&list=WL&index=42&t=1s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "bb91d7effbe1",
+  "title": "Git & GitHub Crash Course For Beginners - YouTube",
+  "url": "https://www.youtube.com/watch?v=SWYqp7iY_Tc&list=WL&index=155&t=1s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "d14df81ed61d",
+  "title": "Intermediate GitHub Tutorial - YouTube",
+  "url": "https://www.youtube.com/watch?v=7h6_aZZ_iNg&list=WL&index=189",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "778d716c521a",
+  "title": "Junior vs Senior Programming - YouTube",
+  "url": "https://www.youtube.com/watch?v=4C_hG3CI4IE&list=WL&index=192",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "8b139b949e79",
+  "title": "21 MORE nooby Python habits - YouTube",
+  "url": "https://www.youtube.com/watch?v=E8NijUYfyus&list=WL&index=151&t=72s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "8b5ff55fa4b1",
+  "title": "Habits Of GOD-Tier Programmers - YouTube",
+  "url": "https://www.youtube.com/watch?v=jO9_vlc1_L8&list=WL&index=159&t=11s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "5f605505215e",
+  "title": "Top-notch Coding Projects for Employment! - YouTube",
+  "url": "https://www.youtube.com/watch?v=VqO8vjh3VFI&list=WL&index=160",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "467f989250c2",
+  "title": "5 Tips To Keep Technical Debt Under Control - YouTube",
+  "url": "https://www.youtube.com/watch?v=spp7gE5hQqM&list=WL&index=180",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "8660bd002224",
+  "title": "Python's Missing Batteries: Essential Libraries You're Missing Out On | Martin Heinz | Personal Website & Blog",
+  "url": "https://martinheinz.dev/blog/96?utm_source=tldrnewsletter",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "f690ee7b93c1",
+  "title": "So dokumentieren Sie Ihren Code wie ein Profi - YouTube",
+  "url": "https://www.youtube.com/watch?v=L7Ry-Fiij-M&list=WL&index=195",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "06765857e5dd",
+  "title": "10 ULTIMATE Python Tips 🔥 - YouTube",
+  "url": "https://www.youtube.com/watch?v=3cUkvFKYbHE",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "88a9353ac997",
+  "title": "How principled coders outperform the competition - YouTube",
+  "url": "https://www.youtube.com/watch?v=q1qKv5TBaOA&list=WL&index=122&t=9s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "3aa5dda6c32b",
+  "title": "The Software Designer Mindset",
+  "url": "https://www.arjancodes.com/mindset?cid=1a285b71-b355-4cfe-918e-32f987353217",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "2bd608315bae",
+  "title": "Your Approach to Programming is Wrong - YouTube",
+  "url": "https://www.youtube.com/watch?v=UAZflJ02JJo",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "3a09f26079d9",
+  "title": "How To Make Programming Effortless - YouTube",
+  "url": "https://www.youtube.com/watch?v=nFFNRsRHdEQ",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "def563cdc39b",
+  "title": "How To Code Everyday - YouTube",
+  "url": "https://www.youtube.com/watch?v=a0eB7tMkvs4&list=WL&index=445",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "fec733f9b292",
+  "title": "Onkel Bobs SOLID-Prinzipien leicht gemacht 🍀 – in Python! - YouTube",
+  "url": "https://www.youtube.com/watch?v=pTB30aXS77U&list=WL&index=63",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "e76312cd9cbe",
+  "title": "Cohesion and coupling: write BETTER PYTHON CODE Part 1 - YouTube",
+  "url": "https://www.youtube.com/watch?v=eiDyK_ofPPM&list=WL&index=69&t=20s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "27da24512fad",
+  "title": "The Ultimate Guide to Writing Classes in Python - YouTube",
+  "url": "https://www.youtube.com/watch?v=lX9UQp2NwTk&list=WL&index=135",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "295c47d2e186",
+  "title": "Next-Level Python: Become a Python Expert",
+  "url": "https://www.arjancodes.com/next-level-python",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "a8b36177ba2d",
+  "title": "The 30-Day Design Challenge",
+  "url": "https://www.arjancodes.com/30ddc",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "0832839afc02",
+  "title": "Ask HN: Where do I find good code to read? | Hacker News",
+  "url": "https://news.ycombinator.com/item?id=37248002",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "a4343f78b5bf",
+  "title": "Fifty Fifty Rule For Programming - YouTube",
+  "url": "https://www.youtube.com/watch?v=RJiGc_mFbks",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "403439da73d5",
+  "title": "Every Software Project is a Startup That Will Probably Fail | The Other Mickey Wiki",
+  "url": "https://muldoon.cloud/2023/09/06/software-keeps-failing.html",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "222ef8a60619",
+  "title": "How to Catch Multiple Exceptions in Python – Real Python",
+  "url": "https://realpython.com/python-catch-multiple-exceptions/",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "92fe06edf809",
+  "title": "Problems - LeetCode",
+  "url": "https://leetcode.com/problemset/all/",
+  "folder": "LeetCode"
+ },
+ {
+  "id": "cccb57b9b9bc",
+  "title": "My Brain after 569 Leetcode Problems - YouTube",
+  "url": "https://www.youtube.com/watch?v=8wysIxzqgPI&list=WL&index=223&t=1s",
+  "folder": "LeetCode"
+ },
+ {
+  "id": "e202845de80d",
+  "title": "Roadmap Leetcode",
+  "url": "https://neetcode.io/roadmap",
+  "folder": "LeetCode"
+ },
+ {
+  "id": "9bb1ad7a5fab",
+  "title": "How To Get Good At LeetCode - YouTube",
+  "url": "https://www.youtube.com/watch?v=oUJlLAdQGIk",
+  "folder": "LeetCode"
+ },
+ {
+  "id": "4bfa694a1c5c",
+  "title": "Grind Leetcode or Build Projects? - YouTube",
+  "url": "https://www.youtube.com/watch?v=5OPShZJkJR8",
+  "folder": "LeetCode"
+ },
+ {
+  "id": "a1659ad87a4a",
+  "title": "Stop Procrastinating and Start Coding - YouTube",
+  "url": "https://www.youtube.com/watch?v=737CRV4zMNY",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "392e4262a828",
+  "title": "How To Get Started: The Cult of Done - YouTube",
+  "url": "https://www.youtube.com/watch?v=bJQj1uKtnus&list=WL&index=216",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "d5645e162799",
+  "title": "Habits of great software engineers",
+  "url": "https://vadimkravcenko.com/shorts/habits-of-great-software-engineers/?utm_source=tldrnewsletter",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "358dc101b24e",
+  "title": "Coding Was HARD Until I Learned These 3 Things... - YouTube",
+  "url": "https://www.youtube.com/watch?v=IlS1aR_gfzs&list=WL&index=272&t=1s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "d4def599a85a",
+  "title": "How I Stay Motivated as a Software Engineer - YouTube",
+  "url": "https://www.youtube.com/watch?v=S8J2LUhveKw",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "d772c563bd27",
+  "title": "Think Less Code More - YouTube",
+  "url": "https://www.youtube.com/watch?v=QG3C1uwuloM",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "5c0271ab5d10",
+  "title": "The Coding Mindset Holding You Back - YouTube",
+  "url": "https://www.youtube.com/watch?v=zzmGOMRCZjc",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "3e88381af845",
+  "title": "Feeling Too Lazy To Code? - YouTube",
+  "url": "https://www.youtube.com/watch?v=Ez3Nw5Tj1yU",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "28a4504a461b",
+  "title": "How To Finish Programming Projects - YouTube",
+  "url": "https://www.youtube.com/watch?v=nqqmwRXSvrw",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "e31dae18f50b",
+  "title": "Inside .git",
+  "url": "https://jvns.ca/blog/2024/01/26/inside-git/?utm_source=tldrnewsletter",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "7e8d1a2b63f1",
+  "title": "Introduction to Better Code Practices",
+  "url": "https://peacockindia.mintlify.app/introduction",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "67f90dcb7965",
+  "title": "How To Become A Coding Machine - YouTube",
+  "url": "https://www.youtube.com/watch?v=AOYUEqlWOGU",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "27e8bcbca3b7",
+  "title": "100+ Linux Things you Need to Know - YouTube",
+  "url": "https://www.youtube.com/watch?v=LKCVKw9CzFo",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "786881790c03",
+  "title": "Top 5 IDE Productivity Hacks That Will Save You Time Programming - YouTube",
+  "url": "https://www.youtube.com/watch?v=HBC7i1AbsyA",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "6aa1d4d1a54e",
+  "title": "How To Make Coding Addictive - YouTube",
+  "url": "https://www.youtube.com/watch?v=K7hU_z9X4Kk",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "e564894b5bf9",
+  "title": "12 Years of Software Engineering Advice in 8 Minutes - YouTube",
+  "url": "https://www.youtube.com/watch?v=GXjEfdxYfqI",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "689864765ffb",
+  "title": "How To Code So Good They Can't Ignore You - YouTube",
+  "url": "https://www.youtube.com/watch?v=_Idg_9IFxwY&t=3s",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "4715b8e0af52",
+  "title": "How Core Git Developers Configure Git",
+  "url": "https://blog.gitbutler.com/how-git-core-devs-configure-git/?utm_source=tldrnewsletter",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "789bde9df7e8",
+  "title": "donnemartin/system-design-primer: Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.",
+  "url": "https://github.com/donnemartin/system-design-primer",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "76677b97685f",
+  "title": "Backend/Ops Weiterbildung - Google Docs",
+  "url": "https://docs.google.com/document/d/1jAyswzE825YpH6D6cm83vqfzfF1ryRiykLCt7EkaK9s/edit?tab=t.0",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "628a934dc6cc",
+  "title": "Tutorials | Terraform | HashiCorp Developer",
+  "url": "https://developer.hashicorp.com/terraform/tutorials",
+  "folder": "Terraform"
+ },
+ {
+  "id": "36ca11a53854",
+  "title": "Getting Started with Terraform for Google Cloud | Coursera",
+  "url": "https://www.coursera.org/learn/getting-started-with-terraform-for-google-cloud",
+  "folder": "Terraform"
+ },
+ {
+  "id": "32d361d593d1",
+  "title": "HashiCorp Certified: Terraform Associate 2024 | Udemy",
+  "url": "https://www.udemy.com/course/terraform-beginner-to-advanced/",
+  "folder": "Terraform"
+ },
+ {
+  "id": "edfb85000376",
+  "title": "Terraform for the Absolute Beginners with Labs | Udemy",
+  "url": "https://www.udemy.com/course/terraform-for-the-absolute-beginners/?couponCode=ST19MT121224",
+  "folder": "Terraform"
+ },
+ {
+  "id": "e2f7c2ade36d",
+  "title": "Why You NEED To Learn Terraform | Practical Tutorial - YouTube",
+  "url": "https://www.youtube.com/watch?v=nvNqfgojocs&list=WL&index=216",
+  "folder": "Terraform"
+ },
+ {
+  "id": "a36ed710e462",
+  "title": "Terraform Explained - YouTube",
+  "url": "https://www.youtube.com/watch?v=HmxkYNv1ksg",
+  "folder": "Terraform"
+ },
+ {
+  "id": "4c9ce30561d7",
+  "title": "GCP | Terraform | HashiCorp Developer",
+  "url": "https://developer.hashicorp.com/terraform/tutorials/gcp-get-started",
+  "folder": "Terraform"
+ },
+ {
+  "id": "5beec34d08eb",
+  "title": "Module Overview | Coursera",
+  "url": "https://www.coursera.org/learn/getting-started-with-terraform-for-google-cloud/lecture/SUV6B/module-overview",
+  "folder": "Terraform"
+ },
+ {
+  "id": "0ccc324a52f2",
+  "title": "Demo - Terraform Workflow | Coursera",
+  "url": "https://www.coursera.org/learn/getting-started-with-terraform-for-google-cloud/lecture/eIGeo/demo-terraform-workflow",
+  "folder": "Terraform"
+ },
+ {
+  "id": "71dda3aa1d9b",
+  "title": "Google Cloud Fundamentals: Core Infrastructure | Coursera",
+  "url": "https://www.coursera.org/learn/gcp-fundamentals",
+  "folder": "Terraform"
+ },
+ {
+  "id": "d2a477950895",
+  "title": "Cloud SDK - Libraries and Command Line Tools | Google Cloud",
+  "url": "https://cloud.google.com/sdk?hl=en",
+  "folder": "Terraform"
+ },
+ {
+  "id": "a37ece67e9a5",
+  "title": "Maschinelles Lernen (ML) und künstliche Intelligenz (AI) – AWS-Schulung im digitalen und Präsenzunterricht",
+  "url": "https://aws.amazon.com/de/training/learn-about/machine-learning/",
+  "folder": "AWS"
+ },
+ {
+  "id": "93ec350e2867",
+  "title": "AWS Certified Machine Learning Engineer - Associate Certification | AWS Certification | AWS",
+  "url": "https://aws.amazon.com/de/certification/certified-machine-learning-engineer-associate/?ch=sec&sec=rmg&d=1",
+  "folder": "AWS"
+ },
+ {
+  "id": "824896c7f8a5",
+  "title": "Zertifizierung für AWS Certified Cloud Practitioner | AWS Certification | AWS",
+  "url": "https://aws.amazon.com/de/certification/certified-cloud-practitioner/?ch=sec&sec=rmg&d=1",
+  "folder": "AWS"
+ },
+ {
+  "id": "72f15131ac0b",
+  "title": "Prepare for AWS Certified Cloud Practitioner",
+  "url": "https://skillbuilder.aws/exam-prep/cloud-practitioner",
+  "folder": "AWS"
+ },
+ {
+  "id": "d9f9ea8f1b71",
+  "title": "My courses - AWS Skill Builder",
+  "url": "https://explore.skillbuilder.aws/learn/mycourses",
+  "folder": "AWS"
+ },
+ {
+  "id": "d0af5787f5e0",
+  "title": "AWS Workshops",
+  "url": "https://workshops.aws/categories/AI%2FML",
+  "folder": "AWS"
+ },
+ {
+  "id": "dcb1fdee6434",
+  "title": "AWS_certification_paths.pdf",
+  "url": "https://d1.awsstatic.com/training-and-certification/docs/AWS_certification_paths.pdf",
+  "folder": "AWS"
+ },
+ {
+  "id": "fa0efa225d0a",
+  "title": "Ramp-Up_Guide_Generative_AI.pdf",
+  "url": "https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide_Generative_AI.pdf",
+  "folder": "AWS"
+ },
+ {
+  "id": "0d767e0d02ac",
+  "title": "Ramp-Up_Guide_Machine_Learning.pdf",
+  "url": "https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide_Machine_Learning.pdf",
+  "folder": "AWS"
+ },
+ {
+  "id": "559e1b61732b",
+  "title": "Bedrock",
+  "url": "https://explore.skillbuilder.aws/learn/course/17508/play/130107/amazon-bedrock-getting-started",
+  "folder": "AWS"
+ },
+ {
+  "id": "bbdeb2dd0377",
+  "title": "Sagemaker",
+  "url": "https://explore.skillbuilder.aws/learn/course/240/play/106714/introduction-to-amazon-sagemaker",
+  "folder": "AWS"
+ },
+ {
+  "id": "2fcb66062ddd",
+  "title": "Amazon Q",
+  "url": "https://explore.skillbuilder.aws/learn/course/19315/play/120850/amazon-q-introduction",
+  "folder": "AWS"
+ },
+ {
+  "id": "b8aa8e3c98b7",
+  "title": "Cloud Practitioner Essentials",
+  "url": "https://explore.skillbuilder.aws/learn/course/134/AWS%2520Cloud%2520Practitioner%2520Essentials",
+  "folder": "AWS"
+ },
+ {
+  "id": "870d9c594f5c",
+  "title": "How I study for AWS Certifications (5x AWS Certified) - YouTube",
+  "url": "https://www.youtube.com/watch?v=OsKzZ7QuCaU",
+  "folder": "AWS"
+ },
+ {
+  "id": "d1b7016ed7e4",
+  "title": "AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf",
+  "url": "https://d1.awsstatic.com/training-and-certification/docs-cloud-practitioner/AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf",
+  "folder": "AWS"
+ },
+ {
+  "id": "22ffdc5c90db",
+  "title": "Deploy open LLMs with Terraform and Amazon SageMaker",
+  "url": "https://www.philschmid.de/terraform-llm-sagemaker?utm_source=substack&utm_medium=email",
+  "folder": "AWS"
+ },
+ {
+  "id": "6bca8304917a",
+  "title": "Why You NEED To Learn Terraform | Practical Tutorial - YouTube",
+  "url": "https://www.youtube.com/watch?v=nvNqfgojocs&list=WL&index=215",
+  "folder": "AWS"
+ },
+ {
+  "id": "32a952948e6a",
+  "title": "How To Make AWS Not Suck - YouTube",
+  "url": "https://www.youtube.com/watch?v=gJmz31JywM0&list=WL&index=263",
+  "folder": "AWS"
+ },
+ {
+  "id": "69d13beb2e8f",
+  "title": "GitHub - serverless/aws-ai-stack: AWS AI Stack – A ready-to-use, full-stack boilerplate project for building serverless AI applications on AWS",
+  "url": "https://github.com/serverless/aws-ai-stack?utm_source=tldrai",
+  "folder": "AWS"
+ },
+ {
+  "id": "4d80be2ed913",
+  "title": "Zertifizierung für AWS Certified Cloud Practitioner | AWS Certification | AWS",
+  "url": "https://aws.amazon.com/de/certification/certified-cloud-practitioner/",
+  "folder": "AWS"
+ },
+ {
+  "id": "d68224ab227b",
+  "title": "Serverless LLM Apps Amazon Bedrock - DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/serverless-LLM-apps-amazon-bedrock/lesson/1/introduction",
+  "folder": "AWS"
+ },
+ {
+  "id": "275129ac746a",
+  "title": "Serverless Agentic Workflows with Amazon Bedrock - DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/serverless-agentic-workflows-with-amazon-bedrock/lesson/1/introduction",
+  "folder": "AWS"
+ },
+ {
+  "id": "186abb175ede",
+  "title": "AWS",
+  "url": "https://www.notion.so/AWS-138caf1b6aa780bc9d3cdfa1715f9293",
+  "folder": "AWS"
+ },
+ {
+  "id": "7f18f09b20ff",
+  "title": "Serverless LLM Apps Amazon Bedrock - DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/serverless-LLM-apps-amazon-bedrock/lesson/2/your-first-generations-with-amazon-bedrock",
+  "folder": "AWS"
+ },
+ {
+  "id": "01bf9a054103",
+  "title": "Give me 180 secs and CODING will be your addiction. - YouTube",
+  "url": "https://www.youtube.com/watch?v=piKJOD2s8KY",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "8a5cd7c0a253",
+  "title": "Modern Python logging - YouTube",
+  "url": "https://www.youtube.com/watch?v=9L77QExPmI0",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "6ac1ecef1f22",
+  "title": "How To Write Unit Tests in Python • Pytest Tutorial - YouTube",
+  "url": "https://www.youtube.com/watch?v=YbpKMIUjvK8",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "35692a89f9ef",
+  "title": "PyTest • REST API Integration Testing with Python - YouTube",
+  "url": "https://www.youtube.com/watch?v=7dgQRVqF1N0",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "bbada198e9e6",
+  "title": "Extremely Underrated Programming Skills - YouTube",
+  "url": "https://www.youtube.com/watch?v=5cAjuIxIvHg",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "c1a2abc82c4e",
+  "title": "Git",
+  "url": "https://git-scm.com/book/en/v2",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "ce2d797b4cfa",
+  "title": "Programming books that rewired my brain - YouTube",
+  "url": "https://www.youtube.com/watch?v=0Phlq0kmImE",
+  "folder": "Coding Level Up & Motivation"
+ },
+ {
+  "id": "f6847baacf09",
+  "title": "8 Refactoring Patterns That Made My Python Code Look Senior-Level | by Abdur Rahman | Aug, 2025 | Python in Plain English",
+  "url": "https://archive.ph/UHDko",
+  "folder": "Coding Level Up & Motivation"
+ }
+]

@@ -23,9 +23,11 @@ from .state import HISTORY
 
 log = logging.getLogger(__name__)
 FEEDBACK = Path(__file__).parents[2] / "data" / "feedback.jsonl"
+CARD_REPLIES = Path(__file__).parents[2] / "data" / "card_replies.jsonl"
 OFFSET = Path(__file__).parents[2] / "data" / "tg_offset.json"
 ACTIONS = {"👍": "up", "👎": "down", "🔖": "save"}
 PATTERN = re.compile(r"^\s*([1-9])\s*(👍|👎|🔖)\s*$")
+MAX_REPLY_CHARS = 500
 
 
 def poll(consume: bool = True) -> list[dict]:
@@ -44,38 +46,49 @@ def poll(consume: bool = True) -> list[dict]:
     resp.raise_for_status()
     updates = resp.json().get("result", [])
 
-    taps, max_id = parse_updates(updates, chat_id)
+    taps, texts, max_id = parse_updates(updates, chat_id)
     rows = resolve(taps, _load_history())
     if consume and rows:
         with FEEDBACK.open("a") as f:
             for row in rows:
                 f.write(json.dumps(row) + "\n")
+    if consume and texts:  # evening-card answers/check-ins, graded by card.py
+        with CARD_REPLIES.open("a") as f:
+            for t in texts:
+                f.write(json.dumps(t, ensure_ascii=False) + "\n")
+        log.info("stored %d card reply/replies", len(texts))
     if consume and max_id > offset:
         OFFSET.write_text(json.dumps({"offset": max_id}))
     return rows
 
 
-def parse_updates(updates: list[dict], chat_id: str) -> tuple[list[dict], int]:
-    """Extract keyboard taps: {"msg_date": ISO date, "rank": int, "action": str}."""
+def parse_updates(
+    updates: list[dict], chat_id: str
+) -> tuple[list[dict], list[dict], int]:
+    """Split owner messages into brief-feedback taps and everything else.
+
+    Returns (taps, texts, max_id): taps are {"msg_date", "rank", "action"},
+    texts are {"date", "text"} — evening-card answers and check-ins."""
     taps: list[dict] = []
+    texts: list[dict] = []
     max_id = 0
     for u in updates:
         max_id = max(max_id, u.get("update_id", 0))
         msg = u.get("message")
         if not msg or str(msg.get("from", {}).get("id")) != str(chat_id):
             continue
-        m = PATTERN.match(msg.get("text", ""))
-        if not m:
+        text = msg.get("text", "")
+        if not text:
             continue
-        msg_date = datetime.fromtimestamp(msg["date"], tz=timezone.utc)
-        taps.append(
-            {
-                "msg_date": msg_date.date().isoformat(),
-                "rank": int(m.group(1)),
-                "action": ACTIONS[m.group(2)],
-            }
-        )
-    return taps, max_id
+        msg_date = datetime.fromtimestamp(msg["date"], tz=timezone.utc).date().isoformat()
+        m = PATTERN.match(text)
+        if m:
+            taps.append(
+                {"msg_date": msg_date, "rank": int(m.group(1)), "action": ACTIONS[m.group(2)]}
+            )
+        else:
+            texts.append({"date": msg_date, "text": text[:MAX_REPLY_CHARS]})
+    return taps, texts, max_id
 
 
 def resolve(taps: list[dict], history: list[dict]) -> list[dict]:

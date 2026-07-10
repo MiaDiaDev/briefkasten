@@ -101,16 +101,47 @@ def test_keyboard_one_row_per_item():
     assert keyboard([]) is None
 
 
-def test_parse_updates_filters_foreign_and_malformed():
+def test_parse_updates_routes_taps_and_card_replies():
     updates = [
         {"update_id": 10, "message": {"from": {"id": 617}, "date": 0, "text": "hi"}},
         {"update_id": 11, "message": {"from": {"id": 999}, "date": 0, "text": "1 👍"}},
         {"update_id": 12, "message": {"from": {"id": 617}, "date": 0, "text": "6teen 👍👍"}},
         {"update_id": 13, "message": {"from": {"id": 617}, "date": 86400, "text": "2🔖"}},
     ]
-    taps, max_id = parse_updates(updates, "617")
+    taps, texts, max_id = parse_updates(updates, "617")
     assert taps == [{"msg_date": "1970-01-02", "rank": 2, "action": "save"}]
+    # owner non-feedback texts become card replies; foreign chat dropped entirely
+    assert [t["text"] for t in texts] == ["hi", "6teen 👍👍"]
     assert max_id == 13
+
+
+def test_card_deck_rotation_and_pool_no_repeat(tmp_path):
+    from briefkasten import card
+
+    cfg = {
+        "rotation": {1: "spanish", 6: "review"},
+        "decks": {"necro": {"pool": str(tmp_path / "pool.json")}},
+    }
+    assert card.pick_deck(1, cfg) == "spanish"
+    assert card.pick_deck(7, cfg) is None  # Sunday off
+
+    pool = [{"id": "a", "title": "A", "url": "u", "folder": "f"},
+            {"id": "b", "title": "B", "url": "u", "folder": "f"}]
+    (tmp_path / "pool.json").write_text(json.dumps(pool))
+    state = {"used_pool_ids": []}
+    picks = set()
+    for day in (date(2026, 7, 14), date(2026, 7, 21)):
+        picks.add(card.build_task("necro", cfg, state, day)["bookmark"]["id"])
+    assert picks == {"a", "b"}  # no repeat while fresh entries remain
+
+
+def test_card_replies_since_and_streak_semantics():
+    from briefkasten.card import replies_since
+
+    rows = [{"date": "2026-07-09", "text": "old"}, {"date": "2026-07-10", "text": "⏭ skip"}]
+    since = replies_since(rows, "2026-07-10")
+    assert since == [{"date": "2026-07-10", "text": "⏭ skip"}]
+    assert [r for r in since if r["text"].strip() != "⏭ skip"] == []  # skip breaks streak
 
 
 def test_resolve_maps_rank_to_latest_prior_brief():
