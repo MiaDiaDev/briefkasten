@@ -31,17 +31,19 @@ def fetch_all(config_path: Path = CONFIG) -> list[Item]:
     max_per_source = settings.get("max_items_per_source", 25)
 
     items: list[Item] = []
-    sources = cfg.get("blogs", []) + cfg.get("twitter", [])
-    for src in sources:
-        try:
-            items.extend(_fetch_source(src, cutoff, max_per_source))
-        except Exception:  # noqa: BLE001 — one dead feed must not kill the run
-            log.exception("source failed: %s", src.get("name"))
-    log.info("fetched %d items from %d sources", len(items), len(sources))
+    n_sources = 0
+    for kind in ("blogs", "twitter"):
+        for src in cfg.get(kind, []):
+            n_sources += 1
+            try:
+                items.extend(_fetch_source(src, cutoff, max_per_source, kind.rstrip("s")))
+            except Exception:  # noqa: BLE001 — one dead feed must not kill the run
+                log.exception("source failed: %s", src.get("name"))
+    log.info("fetched %d items from %d sources", len(items), n_sources)
     return items
 
 
-def _fetch_source(src: dict, cutoff: datetime, limit: int) -> list[Item]:
+def _fetch_source(src: dict, cutoff: datetime, limit: int, kind: str) -> list[Item]:
     feed = feedparser.parse(src["url"])
     out: list[Item] = []
     for entry in feed.entries[:limit]:
@@ -60,6 +62,7 @@ def _fetch_source(src: dict, cutoff: datetime, limit: int) -> list[Item]:
                 title=title,
                 url=url,
                 source=src["name"],
+                kind=kind,
                 source_weight=float(src.get("weight", 1.0)),
                 published=published.isoformat() if published else "",
                 summary_raw=entry.get("summary", "")[:1500],

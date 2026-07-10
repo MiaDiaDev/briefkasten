@@ -1,0 +1,35 @@
+name: weekly-deepdive
+
+on:
+  schedule:
+    # Sunday 07:23 UTC = 09:23 CEST / 08:23 CET (odd minute: see daily-brief.yml)
+    - cron: "23 7 * * 0"
+  workflow_dispatch: # manual trigger for testing
+
+permissions:
+  contents: read # reads history, writes nothing back
+
+concurrency:
+  group: weekly-deepdive
+  cancel-in-progress: false
+
+jobs:
+  deepdive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: uv sync
+
+      - name: Run deep-dive
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: uv run python -m briefkasten.deepdive

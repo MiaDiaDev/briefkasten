@@ -13,9 +13,11 @@ class Item:
     title: str
     url: str
     source: str
+    kind: str = "blog"  # "blog" | "twitter" — twitter items skip full-text fetch
     source_weight: float = 1.0
     published: str = ""  # ISO 8601
     summary_raw: str = ""  # from the feed, untrusted
+    content: str = ""  # full-text extract, untrusted; falls back to summary_raw
 
     # filled by scorer
     field_impact: int = 0

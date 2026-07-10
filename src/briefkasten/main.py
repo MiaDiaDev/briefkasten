@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import logging
 
-from . import brief, deliver, feedback, fetch, score, state
+from . import brief, deliver, feedback, fetch, fulltext, score, state
 
 log = logging.getLogger(__name__)
 
@@ -26,6 +26,7 @@ def run(dry_run: bool = False) -> None:
     log.info("%d unique of %d new (%d fetched)", len(unique), len(new), len(items))
 
     if unique:
+        fulltext.enrich(unique)
         score.score_items(unique)
     daily = brief.compose(unique)
     chunks = brief.render(daily)
