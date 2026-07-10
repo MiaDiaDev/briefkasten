@@ -1,8 +1,10 @@
 """Offline smoke tests: dedupe, scoring math, rendering, chunking."""
 
 import json
+from datetime import date
 
 from briefkasten.brief import compose, render
+from briefkasten.deepdive import load_week, sanitize
 from briefkasten.deliver import keyboard
 from briefkasten.feedback import parse_updates, resolve
 from briefkasten.models import Item
@@ -127,6 +129,20 @@ def test_resolve_maps_rank_to_latest_prior_brief():
         ("up", "new2"),
         ("save", "old2"),
     ]
+
+
+def test_load_week_windows_seven_days():
+    rows = [{"date": "2026-07-04"}, {"date": "2026-07-03"}, {"date": "2026-07-10"}]
+    assert load_week(rows, date(2026, 7, 10)) == [
+        {"date": "2026-07-04"},
+        {"date": "2026-07-10"},
+    ]
+
+
+def test_sanitize_allows_only_b_and_i():
+    out = sanitize('<b>Theme</b> <i>x</i> <a href="https://evil.example">link</a> 1<2')
+    assert "<b>Theme</b>" in out and "<i>x</i>" in out
+    assert "<a" not in out and "1&lt;2" in out
 
 
 def test_enrich_skips_twitter_and_fails_soft(monkeypatch):
