@@ -40,7 +40,10 @@ Candidate features:
 
 - [ ] "You should know about X" pushes outside the daily schedule (breaking
       items above a score threshold)
-- [ ] CFP / conference radar for the EU AI scene (ties into visibility goals)
+- [ ] Proactive nudges: hints on relevant events/opportunities and occasional
+      pushes in a good direction — accountability toward stated goals, not a
+      fixed "conference radar" (complements Mastmate, which owns daily
+      commitment tracking)
 - [ ] Research tasks on demand ("summarize everything on topic Y this month")
 - [ ] Cross-pollination with Trailmix: high-scoring trends → product idea seeds
 - [ ] Migration off GitHub Actions to a small VPS if/when interactivity
