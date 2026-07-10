@@ -38,6 +38,8 @@ blogs:
   - name: netzpolitik.org
     url: https://netzpolitik.org/feed/
     weight: 0.8                 # high volume, general digital policy
+  - name: Addy Osmani
+    url: https://addyosmani.com/rss.xml
 
 # Twitter/X via nitter.net RSS (verified alive 2026-07-08; openrss and
 # rsshub.app no longer serve Twitter anonymously). If nitter dies again,
