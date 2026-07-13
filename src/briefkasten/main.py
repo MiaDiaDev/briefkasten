@@ -27,7 +27,7 @@ def run(dry_run: bool = False) -> None:
 
     if unique:
         fulltext.enrich(unique)
-        score.score_items(unique)
+        score.score_items(unique, state.recent_top_titles())
     daily = brief.compose(unique)
     chunks = brief.render(daily)
 

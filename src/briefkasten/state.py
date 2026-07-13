@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from itertools import combinations
 from pathlib import Path
@@ -112,6 +112,18 @@ def append_history(
     )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n")
+
+
+def recent_top_titles(
+    days: int = 5, path: Path = HISTORY, today: date | None = None
+) -> list[str]:
+    """Titles the owner was actually briefed on (ranked items) recently —
+    context so the scorer can demote incremental follow-ups."""
+    if not path.exists():
+        return []
+    cutoff = ((today or datetime.now(timezone.utc).date()) - timedelta(days=days)).isoformat()
+    rows = [json.loads(ln) for ln in path.read_text().splitlines() if ln]
+    return [r["title"][:120] for r in rows if r["date"] >= cutoff and r.get("rank")]
 
 
 def mark_seen(items: list[Item], seen: dict[str, str], path: Path = STATE) -> None:

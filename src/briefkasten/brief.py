@@ -8,6 +8,7 @@ from datetime import date
 from .models import Brief, Item
 
 TOP_N = 7
+MAX_TOP_PER_SOURCE = 2  # prolific single authors can't own the brief
 MIN_SCORE_FOR_REST = 2.5
 TELEGRAM_LIMIT = 4000  # headroom under the 4096 hard limit
 MAX_HEADLINE = 90  # longer titles (usually tweets) collapse to the summary
@@ -15,8 +16,15 @@ MAX_HEADLINE = 90  # longer titles (usually tweets) collapse to the summary
 
 def compose(items: list[Item]) -> Brief:
     ranked = sorted(items, key=lambda it: it.score, reverse=True)
-    top = ranked[:TOP_N]
-    rest = [it for it in ranked[TOP_N:] if it.score >= MIN_SCORE_FOR_REST]
+    top: list[Item] = []
+    rest: list[Item] = []
+    per_source: dict[str, int] = {}
+    for it in ranked:
+        if len(top) < TOP_N and per_source.get(it.source, 0) < MAX_TOP_PER_SOURCE:
+            top.append(it)
+            per_source[it.source] = per_source.get(it.source, 0) + 1
+        elif it.score >= MIN_SCORE_FOR_REST:
+            rest.append(it)
     return Brief(date=date.today().isoformat(), top=top, rest=rest)
 
 
