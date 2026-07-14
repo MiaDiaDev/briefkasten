@@ -8,7 +8,7 @@ from briefkasten.deepdive import load_week, sanitize
 from briefkasten.deliver import keyboard
 from briefkasten.feedback import parse_updates, resolve
 from briefkasten.models import Item
-from briefkasten.state import append_history, dedupe, filter_new
+from briefkasten.state import append_history, dedupe, filter_new, recent_top_titles
 
 
 def make_item(i: int, **kw) -> Item:
@@ -69,10 +69,33 @@ def test_dedupe_keeps_distinct_items():
 
 
 def test_compose_splits_top_and_rest():
-    items = [make_item(i, field_impact=i) for i in range(10)]
+    items = [make_item(i, field_impact=i, source=f"S{i}") for i in range(10)]
     brief = compose(items)
     assert len(brief.top) == 7
     assert brief.top[0].score >= brief.top[-1].score
+
+
+def test_compose_caps_items_per_source():
+    hogs = [make_item(i, source="Prolific", field_impact=10) for i in range(5)]
+    others = [make_item(10 + i, source=f"S{i}") for i in range(4)]
+    brief = compose(hogs + others)
+    assert sum(1 for it in brief.top if it.source == "Prolific") == 2
+    assert len(brief.top) == 6  # 2 capped + 4 others
+    # capped overflow lands in rest instead of vanishing
+    assert sum(1 for it in brief.rest if it.source == "Prolific") == 3
+
+
+def test_recent_top_titles_only_ranked_and_recent(tmp_path):
+    path = tmp_path / "history.jsonl"
+    rows = [
+        {"date": "2026-07-10", "rank": 1, "title": "briefed"},
+        {"date": "2026-07-10", "rank": None, "title": "unranked"},
+        {"date": "2026-01-01", "rank": 1, "title": "ancient"},
+    ]
+    path.write_text("\n".join(json.dumps(r) for r in rows))
+    today = date(2026, 7, 11)
+    assert recent_top_titles(days=3650, path=path, today=today) == ["briefed", "ancient"]
+    assert recent_top_titles(days=5, path=path, today=today) == ["briefed"]
 
 
 def test_render_collapses_long_titles_to_summary():
