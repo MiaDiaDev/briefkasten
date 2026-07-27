@@ -7,22 +7,7 @@ import os
 
 import httpx
 
-from .models import Item
-
 log = logging.getLogger(__name__)
-
-
-def keyboard(top: list[Item]) -> dict | None:
-    """Reply keyboard: a tap sends the label as a normal message, which
-    Telegram retains 24h for the morning poll — unlike callback queries,
-    which expire within minutes (learned the hard way)."""
-    if not top:
-        return None
-    return {
-        "keyboard": [[f"{i} 👍", f"{i} 👎", f"{i} 🔖"] for i in range(1, len(top) + 1)],
-        "resize_keyboard": True,
-        "input_field_placeholder": "Rate today's brief",
-    }
 
 
 def send(chunks: list[str], reply_markup: dict | None = None) -> None:

@@ -14,7 +14,7 @@ import argparse
 import json
 import logging
 import os
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import anthropic
@@ -22,7 +22,7 @@ import yaml
 
 from . import deliver
 from .deepdive import sanitize
-from .feedback import CARD_REPLIES
+from .feedback import CARD_REPLIES, FEEDBACK
 from .score import PROFILE
 from .state import HISTORY
 
@@ -95,8 +95,29 @@ def build_task(deck: str, cfg: dict, state: dict, today: date) -> dict:
             "week_items": [{k: r[k] for k in ("title", "source", "summary")} for r in top],
         }
     if deck == "review":
-        return {"week_cards": state["week_cards"], "instruction": "summarize the week's cards, one retention question from them"}
+        return {
+            "week_cards": state["week_cards"],
+            "saved_items": saved_this_week(_jsonl(FEEDBACK), _jsonl(HISTORY), today),
+            "instruction": "summarize the week's cards, one retention question from "
+            "them; then list her saved reading list (title + plain URL per line)",
+        }
     raise ValueError(deck)
+
+
+def saved_this_week(feedback_rows: list[dict], history_rows: list[dict], today: date) -> list[dict]:
+    cutoff = (today - timedelta(days=7)).isoformat()
+    items = {r["id"]: r for r in history_rows}
+    return [
+        {"title": items[f["item_id"]]["title"][:80], "url": items[f["item_id"]]["url"]}
+        for f in feedback_rows
+        if f["action"] == "save" and f["harvested"][:10] >= cutoff and f["item_id"] in items
+    ]
+
+
+def _jsonl(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    return [json.loads(ln) for ln in path.read_text().splitlines() if ln]
 
 
 def compose(deck: str, task: dict, yesterday: dict | None, streak: int, model: str) -> str:
@@ -127,10 +148,7 @@ def run(dry_run: bool = False) -> None:
 
     yesterday = None
     if state["last_card"]:
-        rows = []
-        if CARD_REPLIES.exists():
-            rows = [json.loads(ln) for ln in CARD_REPLIES.read_text().splitlines() if ln]
-        replies = replies_since(rows, state["last_card"]["date"])
+        replies = replies_since(_jsonl(CARD_REPLIES), state["last_card"]["date"])
         answered = [r for r in replies if r["text"].strip() != "⏭ skip"]
         state["streak"] = state["streak"] + 1 if answered else 0
         yesterday = {

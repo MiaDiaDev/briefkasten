@@ -5,7 +5,6 @@ from datetime import date
 
 from briefkasten.brief import compose, render
 from briefkasten.deepdive import load_week, sanitize
-from briefkasten.deliver import keyboard
 from briefkasten.feedback import parse_updates, resolve
 from briefkasten.models import Item
 from briefkasten.state import append_history, dedupe, filter_new, recent_top_titles
@@ -75,14 +74,15 @@ def test_compose_splits_top_and_rest():
     assert brief.top[0].score >= brief.top[-1].score
 
 
-def test_compose_caps_items_per_source():
-    hogs = [make_item(i, source="Prolific", field_impact=10) for i in range(5)]
+def test_compose_caps_items_per_author_across_sources():
+    blog = [make_item(i, source="Prolific", author="pro", field_impact=10) for i in range(3)]
+    tweets = [make_item(5 + i, source="@prolific", author="pro", field_impact=9) for i in range(2)]
     others = [make_item(10 + i, source=f"S{i}") for i in range(4)]
-    brief = compose(hogs + others)
-    assert sum(1 for it in brief.top if it.source == "Prolific") == 2
-    assert len(brief.top) == 6  # 2 capped + 4 others
-    # capped overflow lands in rest instead of vanishing
-    assert sum(1 for it in brief.rest if it.source == "Prolific") == 3
+    brief = compose(blog + tweets + others)
+    # blog + handle share ONE cap of 2 when linked via author:
+    assert sum(1 for it in brief.top if it.author == "pro") == 2
+    assert len(brief.top) == 6
+    assert sum(1 for it in brief.rest if it.author == "pro") == 3
 
 
 def test_recent_top_titles_only_ranked_and_recent(tmp_path):
@@ -118,12 +118,6 @@ def test_render_empty_day():
     assert "Quiet day" in chunks[0]
 
 
-def test_keyboard_one_row_per_item():
-    kb = keyboard([make_item(1), make_item(2)])
-    assert kb["keyboard"] == [["1 👍", "1 👎", "1 🔖"], ["2 👍", "2 👎", "2 🔖"]]
-    assert keyboard([]) is None
-
-
 def test_parse_updates_routes_taps_and_card_replies():
     updates = [
         {"update_id": 10, "message": {"from": {"id": 617}, "date": 0, "text": "hi"}},
@@ -136,6 +130,27 @@ def test_parse_updates_routes_taps_and_card_replies():
     # owner non-feedback texts become card replies; foreign chat dropped entirely
     assert [t["text"] for t in texts] == ["hi", "6teen 👍👍"]
     assert max_id == 13
+
+
+def test_parse_updates_bare_number_is_save():
+    updates = [{"update_id": 1, "message": {"from": {"id": 617}, "date": 0, "text": " 4 "}}]
+    taps, texts, _ = parse_updates(updates, "617")
+    assert taps == [{"msg_date": "1970-01-01", "rank": 4, "action": "save"}]
+    assert texts == []
+
+
+def test_saved_this_week_resolves_and_windows():
+    from briefkasten.card import saved_this_week
+
+    history = [{"id": "x", "title": "Saved thing", "url": "https://e.com/x"}]
+    feedback = [
+        {"harvested": "2026-07-25T09:00:00+00:00", "action": "save", "item_id": "x"},
+        {"harvested": "2026-07-01T09:00:00+00:00", "action": "save", "item_id": "x"},  # old
+        {"harvested": "2026-07-25T09:00:00+00:00", "action": "up", "item_id": "x"},  # not save
+        {"harvested": "2026-07-25T09:00:00+00:00", "action": "save", "item_id": "gone"},
+    ]
+    saved = saved_this_week(feedback, history, date(2026, 7, 26))
+    assert saved == [{"title": "Saved thing", "url": "https://e.com/x"}]
 
 
 def test_card_deck_rotation_and_pool_no_repeat(tmp_path):

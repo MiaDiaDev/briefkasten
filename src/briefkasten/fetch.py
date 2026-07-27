@@ -63,6 +63,7 @@ def _fetch_source(src: dict, cutoff: datetime, limit: int, kind: str) -> list[It
                 url=url,
                 source=src["name"],
                 kind=kind,
+                author=src.get("author", src["name"]),
                 source_weight=float(src.get("weight", 1.0)),
                 published=published.isoformat() if published else "",
                 summary_raw=entry.get("summary", "")[:1500],
