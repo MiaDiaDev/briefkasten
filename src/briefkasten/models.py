@@ -14,6 +14,7 @@ class Item:
     url: str
     source: str
     kind: str = "blog"  # "blog" | "twitter" — twitter items skip full-text fetch
+    author: str = ""  # groups sources of one person (blog + handle) for capping
     source_weight: float = 1.0
     published: str = ""  # ISO 8601
     summary_raw: str = ""  # from the feed, untrusted

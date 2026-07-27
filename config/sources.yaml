@@ -5,6 +5,7 @@ blogs:
   - name: Simon Willison
     url: https://simonwillison.net/atom/everything/
     weight: 1.2
+    author: simonw
   - name: Anthropic News
     url: https://www.anthropic.com/rss.xml
     weight: 1.1
@@ -47,6 +48,7 @@ blogs:
 twitter:
   - name: "@simonw"
     url: https://nitter.net/simonw/rss
+    author: simonw
   - name: "@karpathy"
     url: https://nitter.net/karpathy/rss
   - name: "@swyx"
@@ -62,3 +64,13 @@ settings:
   max_items_per_source: 25
   max_age_hours: 36        # ignore items older than this
   request_timeout_s: 15
+
+# Fetched ONLY by the Sunday deep-dive for mainstream breadth — never the
+# daily brief, never seen.json. Headlines-as-context, not curated signal.
+context:
+  - name: The Verge (AI)
+    url: https://www.theverge.com/rss/ai-artificial-intelligence/index.xml
+  - name: Ars Technica (AI)
+    url: https://arstechnica.com/ai/feed/
+  - name: MIT Tech Review (AI)
+    url: https://www.technologyreview.com/topic/artificial-intelligence/feed

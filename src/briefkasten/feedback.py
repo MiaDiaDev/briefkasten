@@ -26,7 +26,8 @@ FEEDBACK = Path(__file__).parents[2] / "data" / "feedback.jsonl"
 CARD_REPLIES = Path(__file__).parents[2] / "data" / "card_replies.jsonl"
 OFFSET = Path(__file__).parents[2] / "data" / "tg_offset.json"
 ACTIONS = {"👍": "up", "👎": "down", "🔖": "save"}
-PATTERN = re.compile(r"^\s*([1-9])\s*(👍|👎|🔖)\s*$")
+PATTERN = re.compile(r"^\s*([1-9])\s*(👍|👎|🔖)\s*$")  # legacy explicit form still works
+BARE_NUMBER = re.compile(r"^\s*([1-9])\s*$")  # bare rank reply = save that item
 MAX_REPLY_CHARS = 500
 
 
@@ -81,11 +82,12 @@ def parse_updates(
         if not text:
             continue
         msg_date = datetime.fromtimestamp(msg["date"], tz=timezone.utc).date().isoformat()
-        m = PATTERN.match(text)
-        if m:
+        if m := PATTERN.match(text):
             taps.append(
                 {"msg_date": msg_date, "rank": int(m.group(1)), "action": ACTIONS[m.group(2)]}
             )
+        elif m := BARE_NUMBER.match(text):
+            taps.append({"msg_date": msg_date, "rank": int(m.group(1)), "action": "save"})
         else:
             texts.append({"date": msg_date, "text": text[:MAX_REPLY_CHARS]})
     return taps, texts, max_id

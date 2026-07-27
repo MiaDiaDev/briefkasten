@@ -36,7 +36,9 @@ def run(dry_run: bool = False) -> None:
             print("-" * 60)
             print(chunk)
     else:
-        deliver.send(chunks, deliver.keyboard(daily.top))
+        # no rating keyboard anymore: reply a bare number to save that item;
+        # remove_keyboard clears leftover grids from older clients
+        deliver.send(chunks, {"remove_keyboard": True})
         # only persist after successful delivery; mark all new ids (including
         # collapsed duplicates) so a dropped tweet can't resurface tomorrow
         state.mark_seen(new, seen)
