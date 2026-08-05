@@ -24,7 +24,7 @@ def compose(items: list[Item]) -> Brief:
         if len(top) < TOP_N and per_author.get(who, 0) < MAX_TOP_PER_AUTHOR:
             top.append(it)
             per_author[who] = per_author.get(who, 0) + 1
-        elif it.score >= MIN_SCORE_FOR_REST:
+        elif it.score >= MIN_SCORE_FOR_REST or it.always_show:
             rest.append(it)
     return Brief(date=date.today().isoformat(), top=top, rest=rest)
 

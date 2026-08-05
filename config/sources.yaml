@@ -10,29 +10,40 @@ blogs:
     url: https://www.anthropic.com/rss.xml
     weight: 1.1
   - name: Interconnects (Nathan Lambert)
+    always_show: true
     url: https://www.interconnects.ai/feed
   - name: Import AI (Jack Clark)
+    always_show: true
     url: https://importai.substack.com/feed
   - name: Latent Space
+    always_show: true
     url: https://www.latent.space/feed
   - name: Sebastian Raschka
+    always_show: true
     url: https://magazine.sebastianraschka.com/feed
   - name: Hacker News (AI, 50+ points)
     url: https://hnrss.org/newest?q=AI+OR+LLM+OR+Claude&points=50
     weight: 0.8
   - name: Hugging Face Blog
+    always_show: true
     url: https://huggingface.co/blog/feed.xml
   - name: One Useful Thing (Ethan Mollick)
+    always_show: true
     url: https://www.oneusefulthing.org/feed
   - name: philschmid
+    always_show: true
     url: https://www.philschmid.de/rss
   - name: Hamel Husain
+    always_show: true
     url: https://hamel.dev/index.xml
   - name: Chip Huyen            # quiet since Jan 2025; harmless to keep
+    always_show: true
     url: https://huyenchip.com/feed.xml
   - name: Lil'Log (Lilian Weng)
+    always_show: true
     url: https://lilianweng.github.io/index.xml
   - name: SemiAnalysis          # feed stale since Sep 2025 (paywall?); watch
+    always_show: true
     url: https://semianalysis.com/feed/
   - name: OpenAI News
     url: https://openai.com/news/rss.xml
@@ -40,6 +51,7 @@ blogs:
     url: https://netzpolitik.org/feed/
     weight: 0.8                 # high volume, general digital policy
   - name: Addy Osmani
+    always_show: true
     url: https://addyosmani.com/rss.xml
 
 # Twitter/X via nitter.net RSS (verified alive 2026-07-08; openrss and

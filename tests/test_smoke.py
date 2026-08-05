@@ -98,6 +98,20 @@ def test_recent_top_titles_only_ranked_and_recent(tmp_path):
     assert recent_top_titles(days=5, path=path, today=today) == ["briefed"]
 
 
+def test_compose_always_show_guarantees_rest_slot():
+    filler = [make_item(i, source=f"S{i}", field_impact=10) for i in range(7)]
+    lowscore = make_item(
+        20, source="Lil'Log", field_impact=0, work_relevance=0, personal_interest=0,
+        always_show=True,
+    )
+    dropped = make_item(
+        21, source="HN", field_impact=0, work_relevance=0, personal_interest=0
+    )
+    brief = compose(filler + [lowscore, dropped])
+    assert lowscore in brief.rest  # guaranteed despite score 0
+    assert dropped not in brief.rest  # unflagged low score still drops
+
+
 def test_render_collapses_long_titles_to_summary():
     tweet = make_item(1, title="x" * 300, summary="One concise sentence.")
     out = render(compose([tweet]))[0]
