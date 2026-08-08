@@ -15,6 +15,7 @@ class Item:
     source: str
     kind: str = "blog"  # "blog" | "twitter" — twitter items skip full-text fetch
     author: str = ""  # groups sources of one person (blog + handle) for capping
+    always_show: bool = False  # handpicked source: guaranteed at least "Also seen"
     source_weight: float = 1.0
     published: str = ""  # ISO 8601
     summary_raw: str = ""  # from the feed, untrusted
